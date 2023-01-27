@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from .models import SiteUrl
 
+import aiohttp
+import asyncio
+import time
+from datetime import datetime
+import schedule
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,4 +33,43 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class StartSerializer(serializers.ModelSerializer):
+    started=serializers.SerializerMethodField(read_only=True)
+    class Meta :
+        model=SiteUrl
+        fields=[
+            "id",
+            "endpoint",
+            "started",
+        ]
+        
+        
+    
+    
+    def get_started(self,obj):
+        
+        if not hasattr(obj, 'endpoint'):
+            return "No"
+        if not isinstance(obj, SiteUrl):
+            return "No"
+        else :
+            start_time = datetime.now()
+
+            return start_time
+twohundredstatus = 0
+
+# async def get_status(session, url):
+#     async with session.get(url) as resp:
+#         return resp.status
+    
+
+# def job():
+#     # asyncio.run(main())
+#     pass
+
+# schedule.every().minutes.do(job())
+# while True:
+#     schedule.run_pending()
+    
 

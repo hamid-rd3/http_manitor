@@ -5,9 +5,11 @@ from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer
 from rest_framework import generics
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.throttling import UserRateThrottle
 
 class AuthView(APIView):
     permission_classes = (IsAuthenticated, )
+    throttle_classes = [UserRateThrottle]
 
     def get(self, request):
         content = {'message': 'Authenticated ! '}

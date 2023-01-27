@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class  SiteUrl (models.Model):
+    
+    endpoint = models.CharField(max_length=80)
+
+
