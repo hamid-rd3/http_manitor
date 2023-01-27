@@ -1,0 +1,8 @@
+django>=4.0.0,<4.1.0
+djangorestframework
+pyyaml
+requests
+aiohttp
+drf_yasg
+schedule
+djangorestframework_simplejwt
